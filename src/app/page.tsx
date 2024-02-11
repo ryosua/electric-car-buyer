@@ -8,7 +8,7 @@ import "@fontsource/roboto/700.css";
 
 const Home = () => (
   <>
-    <Typography variant="h1">Electric CarModel Buyer</Typography>
+    <Typography variant="h1">Electric Car Buyer</Typography>
     <CarTable cars={carData} />
   </>
 );
