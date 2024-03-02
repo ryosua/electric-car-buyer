@@ -15,13 +15,17 @@ export type CarModel = {
   /**
    * in seconds
    */
-  zeroToSixty: number;
+  zeroToSixty?: number;
   /**
    * in mph
    */
-  topSpeed: number;
+  topSpeed?: number;
   /**
    * in kW
    */
   peakOutput: number;
+  /**
+   * in inches
+   */
+  groundClearance?: number;
 };
