@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import {
   Table,
   TableBody,
@@ -7,6 +10,12 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
+import {
+  useReactTable,
+  ColumnDef,
+  getCoreRowModel,
+  flexRender,
+} from "@tanstack/react-table";
 import { CarModel } from "./types";
 
 type Props = {
@@ -14,40 +23,89 @@ type Props = {
 };
 
 const CarTable = ({ cars }: Props) => {
+  const columns = React.useMemo<ColumnDef<CarModel>[]>(
+    () => [
+      {
+        accessorKey: "brand",
+        header: () => <span>Brand</span>,
+      },
+      {
+        accessorKey: "model",
+        header: () => <span>Model</span>,
+      },
+      {
+        accessorKey: "basePrice",
+        header: () => <span>Base Price</span>,
+      },
+      {
+        accessorKey: "destCharge",
+        header: () => <span>Destination Charge</span>,
+      },
+      {
+        accessorKey: "taxCredit",
+        header: () => <span>Tax Credit</span>,
+      },
+      {
+        accessorKey: "batterySize",
+        header: () => <span>Battery Size (kWh)</span>,
+      },
+      {
+        accessorKey: "epaRange",
+        header: () => <span>EPA Range (miles)</span>,
+      },
+      {
+        accessorKey: "zeroToSixty",
+        header: () => <span>0-60 mph (seconds)</span>,
+      },
+      {
+        accessorKey: "topSpeed",
+        header: () => <span>Top Speed (mph)</span>,
+      },
+      {
+        accessorKey: "peakOutput",
+        header: () => <span>Peak Output (kW)</span>,
+      },
+      {
+        accessorKey: "groundClearance",
+        header: () => <span>Ground Clearance (inches)</span>,
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data: cars,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Brand</TableCell>
-            <TableCell>Model</TableCell>
-            <TableCell align="right">Base Price</TableCell>
-            <TableCell align="right">Destination Charge</TableCell>
-            <TableCell align="right">Tax Credit</TableCell>
-            <TableCell align="right">Battery Size (kWh)</TableCell>
-            <TableCell align="right">EPA Range (miles)</TableCell>
-            <TableCell align="right">0-60 mph (seconds)</TableCell>
-            <TableCell align="right">Top Speed (mph)</TableCell>
-            <TableCell align="right">Peak Output (kW)</TableCell>
-            <TableCell align="right">Ground Clearance (inches)</TableCell>
+            {table
+              .getHeaderGroups()
+              .map((headerGroup) =>
+                headerGroup.headers.map((header) => (
+                  <TableCell key={header.id}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </TableCell>
+                ))
+              )}
           </TableRow>
         </TableHead>
         <TableBody>
-          {cars.map((car) => (
-            <TableRow key={car.model}>
-              <TableCell component="th" scope="row">
-                {car.brand}
-              </TableCell>
-              <TableCell>{car.model}</TableCell>
-              <TableCell align="right">{car.basePrice}</TableCell>
-              <TableCell align="right">{car.destCharge}</TableCell>
-              <TableCell align="right">{car.taxCredit}</TableCell>
-              <TableCell align="right">{car.batterySize}</TableCell>
-              <TableCell align="right">{car.epaRange}</TableCell>
-              <TableCell align="right">{car.zeroToSixty}</TableCell>
-              <TableCell align="right">{car.topSpeed}</TableCell>
-              <TableCell align="right">{car.peakOutput}</TableCell>
-              <TableCell align="right">{car.groundClearance}</TableCell>
+          {table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
             </TableRow>
           ))}
         </TableBody>
