@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Tab,
 } from "@mui/material";
 import { CarModel } from "./types";
 
@@ -29,6 +30,7 @@ const CarTable = ({ cars }: Props) => {
             <TableCell align="right">0-60 mph (seconds)</TableCell>
             <TableCell align="right">Top Speed (mph)</TableCell>
             <TableCell align="right">Peak Output (kW)</TableCell>
+            <TableCell align="right">Ground Clearance (inches)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -46,6 +48,7 @@ const CarTable = ({ cars }: Props) => {
               <TableCell align="right">{car.zeroToSixty}</TableCell>
               <TableCell align="right">{car.topSpeed}</TableCell>
               <TableCell align="right">{car.peakOutput}</TableCell>
+              <TableCell align="right">{car.groundClearance}</TableCell>
             </TableRow>
           ))}
         </TableBody>
