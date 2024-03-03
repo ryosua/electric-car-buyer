@@ -6,7 +6,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Tab,
 } from "@mui/material";
 import { CarModel } from "./types";
 
