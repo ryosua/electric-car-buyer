@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -12,6 +12,7 @@ import {
   Typography,
   Box,
   ThemeProvider,
+  Skeleton,
 } from "@mui/material";
 import {
   useReactTable,
@@ -26,7 +27,22 @@ type Props = {
   cars: CarModel[];
 };
 
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
 const CarTable = ({ cars }: Props) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const columns = React.useMemo<ColumnDef<CarModel>[]>(
     () => [
       {
@@ -52,7 +68,7 @@ const CarTable = ({ cars }: Props) => {
             Base Price
           </Typography>
         ),
-        cell: (info) => `$${info.getValue<number>().toLocaleString()}`,
+        cell: (info) => formatCurrency(info.getValue<number>()),
       },
       {
         accessorKey: "destCharge",
@@ -61,7 +77,7 @@ const CarTable = ({ cars }: Props) => {
             Destination Charge
           </Typography>
         ),
-        cell: (info) => `$${info.getValue<number>().toLocaleString()}`,
+        cell: (info) => formatCurrency(info.getValue<number>()),
       },
       {
         accessorKey: "taxCredit",
@@ -70,7 +86,7 @@ const CarTable = ({ cars }: Props) => {
             Tax Credit
           </Typography>
         ),
-        cell: (info) => `$${info.getValue<number>().toLocaleString()}`,
+        cell: (info) => formatCurrency(info.getValue<number>()),
       },
       {
         accessorKey: "batterySize",
@@ -97,7 +113,8 @@ const CarTable = ({ cars }: Props) => {
             0-60 mph
           </Typography>
         ),
-        cell: (info) => `${info.getValue<number>()} sec`,
+        cell: (info) =>
+          info.getValue<number>() ? `${info.getValue<number>()} sec` : "N/A",
       },
       {
         accessorKey: "topSpeed",
@@ -106,7 +123,8 @@ const CarTable = ({ cars }: Props) => {
             Top Speed
           </Typography>
         ),
-        cell: (info) => `${info.getValue<number>()} mph`,
+        cell: (info) =>
+          info.getValue<number>() ? `${info.getValue<number>()} mph` : "N/A",
       },
       {
         accessorKey: "peakOutput",
@@ -124,7 +142,8 @@ const CarTable = ({ cars }: Props) => {
             Ground Clearance
           </Typography>
         ),
-        cell: (info) => `${info.getValue<number>()}"`,
+        cell: (info) =>
+          info.getValue<number>() ? `${info.getValue<number>()}"` : "N/A",
       },
     ],
     []
@@ -135,6 +154,14 @@ const CarTable = ({ cars }: Props) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  if (!mounted) {
+    return (
+      <Box sx={{ p: 3, maxWidth: "100%" }}>
+        <Skeleton variant="rectangular" height={400} />
+      </Box>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
