@@ -1,12 +1,7 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import ThemeRegistry from "./ThemeRegistry";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Electric Car Buyer",
-  description: "Compare Electric Cars",
-};
 
 export default function RootLayout({
   children,
@@ -15,7 +10,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeRegistry>{children}</ThemeRegistry>
+      </body>
     </html>
   );
 }
