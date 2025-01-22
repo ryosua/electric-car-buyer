@@ -9,6 +9,9 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Typography,
+  Box,
+  ThemeProvider,
 } from "@mui/material";
 import {
   useReactTable,
@@ -17,6 +20,7 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { CarModel } from "./types";
+import { theme } from "./theme";
 
 type Props = {
   cars: CarModel[];
@@ -27,47 +31,100 @@ const CarTable = ({ cars }: Props) => {
     () => [
       {
         accessorKey: "brand",
-        header: () => <span>Brand</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Brand
+          </Typography>
+        ),
       },
       {
         accessorKey: "model",
-        header: () => <span>Model</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Model
+          </Typography>
+        ),
       },
       {
         accessorKey: "basePrice",
-        header: () => <span>Base Price</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Base Price
+          </Typography>
+        ),
+        cell: (info) => `$${info.getValue<number>().toLocaleString()}`,
       },
       {
         accessorKey: "destCharge",
-        header: () => <span>Destination Charge</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Destination Charge
+          </Typography>
+        ),
+        cell: (info) => `$${info.getValue<number>().toLocaleString()}`,
       },
       {
         accessorKey: "taxCredit",
-        header: () => <span>Tax Credit</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Tax Credit
+          </Typography>
+        ),
+        cell: (info) => `$${info.getValue<number>().toLocaleString()}`,
       },
       {
         accessorKey: "batterySize",
-        header: () => <span>Battery Size (kWh)</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Battery Size
+          </Typography>
+        ),
+        cell: (info) => `${info.getValue<number>()} kWh`,
       },
       {
         accessorKey: "epaRange",
-        header: () => <span>EPA Range (miles)</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            EPA Range
+          </Typography>
+        ),
+        cell: (info) => `${info.getValue<number>()} miles`,
       },
       {
         accessorKey: "zeroToSixty",
-        header: () => <span>0-60 mph (seconds)</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            0-60 mph
+          </Typography>
+        ),
+        cell: (info) => `${info.getValue<number>()} sec`,
       },
       {
         accessorKey: "topSpeed",
-        header: () => <span>Top Speed (mph)</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Top Speed
+          </Typography>
+        ),
+        cell: (info) => `${info.getValue<number>()} mph`,
       },
       {
         accessorKey: "peakOutput",
-        header: () => <span>Peak Output (kW)</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Peak Output
+          </Typography>
+        ),
+        cell: (info) => `${info.getValue<number>()} kW`,
       },
       {
         accessorKey: "groundClearance",
-        header: () => <span>Ground Clearance (inches)</span>,
+        header: () => (
+          <Typography variant="subtitle1" fontWeight="bold">
+            Ground Clearance
+          </Typography>
+        ),
+        cell: (info) => `${info.getValue<number>()}"`,
       },
     ],
     []
@@ -80,37 +137,51 @@ const CarTable = ({ cars }: Props) => {
   });
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            {table
-              .getHeaderGroups()
-              .map((headerGroup) =>
-                headerGroup.headers.map((header) => (
-                  <TableCell key={header.id}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </TableCell>
-                ))
-              )}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ p: 3, maxWidth: "100%" }}>
+        <Typography variant="h2" gutterBottom>
+          Electric Vehicle Comparison
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom sx={{ mb: 4 }}>
+          Compare specifications and prices of available electric vehicles
+        </Typography>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="electric cars table">
+            <TableHead>
+              <TableRow>
+                {table
+                  .getHeaderGroups()
+                  .map((headerGroup) =>
+                    headerGroup.headers.map((header) => (
+                      <TableCell key={header.id}>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </TableCell>
+                    ))
+                  )}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
               ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </ThemeProvider>
   );
 };
 
