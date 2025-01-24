@@ -1,4 +1,11 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid2,
+  Paper,
+  Typography,
+} from "@mui/material";
 import {
   ArrowForward,
   BatteryChargingFull,
@@ -66,29 +73,29 @@ const Home = () => (
         </Button>
       </Link>
 
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
+      <Grid2 container spacing={4}>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <FeatureCard
             title="Smart Comparison"
             description="Compare multiple electric vehicles side by side with our intuitive comparison tool. Analyze range, price, features, and more at a glance."
             icon={CompareArrows}
           />
-        </Grid>
-        <Grid item xs={12} md={4}>
+        </Grid2>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <FeatureCard
             title="Range Insights"
             description="Get detailed information about real-world range performance under different conditions. Make sure your chosen EV meets your daily driving needs."
             icon={BatteryChargingFull}
           />
-        </Grid>
-        <Grid item xs={12} md={4}>
+        </Grid2>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <FeatureCard
             title="Performance Metrics"
             description="Access comprehensive performance data including acceleration, top speed, and charging capabilities to find the perfect balance of power and efficiency."
             icon={Speed}
           />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Box>
   </Container>
 );
