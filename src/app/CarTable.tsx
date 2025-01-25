@@ -1,27 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-  Box,
-  ThemeProvider,
-  Skeleton,
-} from "@mui/material";
-import {
-  useReactTable,
-  ColumnDef,
-  getCoreRowModel,
-  flexRender,
-} from "@tanstack/react-table";
+import { Typography, Box, ThemeProvider, Skeleton } from "@mui/material";
+import { ColumnDef } from "@tanstack/react-table";
 import { CarModel } from "./types";
 import { theme } from "./theme";
+import Table from "./components/Table";
 
 type Props = {
   cars: CarModel[];
@@ -149,12 +133,6 @@ const CarTable = ({ cars }: Props) => {
     []
   );
 
-  const table = useReactTable({
-    data: cars,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   if (!mounted) {
     return (
       <Box sx={{ p: 3, maxWidth: "100%" }}>
@@ -172,41 +150,7 @@ const CarTable = ({ cars }: Props) => {
         <Typography variant="subtitle1" gutterBottom sx={{ mb: 4 }}>
           Compare specifications and prices of available electric vehicles
         </Typography>
-
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="electric cars table">
-            <TableHead>
-              <TableRow>
-                {table
-                  .getHeaderGroups()
-                  .map((headerGroup) =>
-                    headerGroup.headers.map((header) => (
-                      <TableCell key={header.id}>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </TableCell>
-                    ))
-                  )}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Table data={cars} columns={columns} />
       </Box>
     </ThemeProvider>
   );
