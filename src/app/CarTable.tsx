@@ -143,13 +143,7 @@ const CarTable = ({ cars }: Props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ p: 3, maxWidth: "100%" }}>
-        <Typography variant="h2" gutterBottom>
-          Electric Vehicle Comparison
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom sx={{ mb: 4 }}>
-          Compare specifications and prices of available electric vehicles
-        </Typography>
+      <Box sx={{ maxWidth: "100%" }}>
         <Table data={cars} columns={columns} />
       </Box>
     </ThemeProvider>
