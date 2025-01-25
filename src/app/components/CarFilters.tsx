@@ -92,7 +92,7 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Grid2 container spacing={3}>
+      <Grid2 container spacing={6}>
         <Grid2 size={{ xs: 12 }}>
           <TextField
             fullWidth
@@ -104,7 +104,7 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
           />
         </Grid2>
 
-        <Grid2 size={{ xs: 12, md: 4 }}>
+        <Grid2 size={{ xs: 12, md: 4 }} sx={{ mb: { xs: 2, md: 0 } }}>
           <FormControl fullWidth>
             <InputLabel>Brand</InputLabel>
             <Select
@@ -135,6 +135,14 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
             min={priceRange.min}
             max={priceRange.max}
           />
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              ${filters.minPrice.toLocaleString()}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              ${filters.maxPrice.toLocaleString()}
+            </Typography>
+          </Box>
         </Grid2>
 
         <Grid2 size={{ xs: 12, md: 4 }}>
@@ -149,6 +157,14 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
             min={rangeValues.min}
             max={rangeValues.max}
           />
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              {filters.minRange.toLocaleString()} mi
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {filters.maxRange.toLocaleString()} mi
+            </Typography>
+          </Box>
         </Grid2>
       </Grid2>
     </Box>
