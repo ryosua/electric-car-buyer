@@ -8,7 +8,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
+  Grid2,
   Typography,
 } from "@mui/material";
 import { CarModel } from "../types";
@@ -92,8 +92,8 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={3}>
+        <Grid2 size={{ xs: 12 }}>
           <TextField
             fullWidth
             label="Search cars"
@@ -102,9 +102,9 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
               setFilters((prev) => ({ ...prev, search: e.target.value }))
             }
           />
-        </Grid>
+        </Grid2>
 
-        <Grid item xs={12} md={4}>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <FormControl fullWidth>
             <InputLabel>Brand</InputLabel>
             <Select
@@ -121,9 +121,9 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
               ))}
             </Select>
           </FormControl>
-        </Grid>
+        </Grid2>
 
-        <Grid item xs={12} md={4}>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <Typography gutterBottom>Price Range ($)</Typography>
           <Slider
             value={[filters.minPrice, filters.maxPrice]}
@@ -135,9 +135,9 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
             min={priceRange.min}
             max={priceRange.max}
           />
-        </Grid>
+        </Grid2>
 
-        <Grid item xs={12} md={4}>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <Typography gutterBottom>EPA Range (miles)</Typography>
           <Slider
             value={[filters.minRange, filters.maxRange]}
@@ -149,8 +149,8 @@ const CarFilters = ({ cars, onFilterChange }: Props) => {
             min={rangeValues.min}
             max={rangeValues.max}
           />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Box>
   );
 };
