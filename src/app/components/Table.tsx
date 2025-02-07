@@ -15,10 +15,10 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 
-interface TableProps<T> {
+type TableProps<T> = {
   data: T[];
   columns: ColumnDef<T>[];
-}
+};
 
 const Table = <T extends object>({ data, columns }: TableProps<T>) => {
   const table = useReactTable({
